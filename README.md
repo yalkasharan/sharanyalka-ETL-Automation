@@ -1,42 +1,83 @@
-This template is designed for:
-- Data Engineers
-- Analytics Engineers
-- BI & Reporting pipelines (Power BI, SQL, APIs)
-- Automation-focused ETL workflows
+**Project Description**
+
+This project implements a modular, production-ready ETL pipeline using Python. It extracts data from multiple source systems, applies standardized business transformations and data quality checks, and loads curated data into downstream analytical platforms for reporting and decision-making.
+
+The project follows a clean, scalable architecture with clear separation between extract, transform, load, orchestration, and utilities, making it easy to maintain, test, and automate across environments (dev, QA, prod).
 
 ---
 
-## 🚀 Features
+## Project Structure
 
-- Clean `extract / transform / load` separation
-- Standard `src/` layout (production best practice)
-- Built-in logging (console + per-run log files)
-- Environment-based configuration (`dev / qa / prod`)
-- Ready for scheduling (Task Scheduler, Airflow, CI)
-- No Docker required
+The directory structure of the project looks like this:
 
----
-
-## 📁 Project Structure
-
-```text
 etl_project/
-├── configs/
-│   ├── base.yaml
-│   ├── dev.yaml
-│   ├── qa.yaml
-│   └── prod.yaml
+├── .github/                         # GitHub automation
+│   ├── dependabot.yaml              # Dependency updates
+│   └── workflows/
+│       └── tests.yaml               # CI tests (pytest, linting)
 │
-├── src/
+├── configs/                         # Configuration files
+│   ├── base.yaml                    # Shared config
+│   ├── dev.yaml                     # Dev overrides
+│   ├── qa.yaml                      # QA overrides
+│   └── prod.yaml                    # Prod overrides
+│
+├── data/                            # Local data (optional, ignored in prod)
+│   ├── raw/                         # Raw extracted data
+│   └── processed/                   # Transformed data
+│
+├── docs/                            # Documentation
+│   ├── README.md                    # High-level docs
+│   └── architecture.md              # ETL architecture & flow
+│
+├── notebooks/                       # Exploration / debugging notebooks
+│
+├── reports/                         # Outputs / reports
+│   └── figures/
+│
+├── logs/                            # Runtime logs (gitignored)
+│
+├── src/                             # Source code (src layout)
 │   └── etl_project/
-│       ├── extract/
-│       ├── transform/
-│       ├── load/
-│       ├── orchestration/
-│       ├── quality/
-│       └── utils/
+│       ├── __init__.py
+│       │
+│       ├── extract/                 # Data ingestion
+│       │   ├── __init__.py
+│       │   ├── salesforce.py
+│       │   └── database.py
+│       │
+│       ├── transform/               # Business logic
+│       │   ├── __init__.py
+│       │   └── business_rules.py
+│       │
+│       ├── load/                    # Data persistence
+│       │   ├── __init__.py
+│       │   └── data_warehouse.py
+│       │
+│       ├── quality/                 # Data quality checks
+│       │   ├── __init__.py
+│       │   └── validations.py
+│       │
+│       ├── orchestration/           # Pipeline control
+│       │   ├── __init__.py
+│       │   └── pipeline.py
+│       │
+│       └── utils/                   # Shared utilities
+│           ├── __init__.py
+│           ├── logger.py
+│           └── config_loader.py
 │
-├── tests/
-├── logs/
-├── reports/
-└── run_etl.py
+├── tests/                           # Automated tests
+│   ├── __init__.py
+│   ├── test_extract.py
+│   ├── test_transform.py
+│   ├── test_load.py
+│   └── test_pipeline.py
+│
+├── .gitignore
+├── .pre-commit-config.yaml          # Formatting & lint hooks
+├── pyproject.toml                   # Python dependencies & tooling
+├── README.md                        # MAIN project README (GitHub front)
+├── run_etl.py                       # Entry point
+└── tasks.py                         # Task runner (optional)
+

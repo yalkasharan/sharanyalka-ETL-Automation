@@ -1,0 +1,3 @@
+app:
+  name: "{{ cookiecutter.project_name }}"
+  author: "{{ cookiecutter.author_name }}"

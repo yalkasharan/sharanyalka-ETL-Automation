@@ -10,6 +10,8 @@ The project follows a clean, scalable architecture with clear separation between
 
 The directory structure of the project looks like this:
 
+```text
+
 etl_project/
 ├── .github/                         # GitHub automation
 │   ├── dependabot.yaml              # Dependency updates
